@@ -6,23 +6,16 @@ using System.Threading.Tasks;
 
 namespace Kørselsbidrag
 {
-    public class Logic
+    public class Logic : LogicBase
     {
         public Logic()
         {
-            //Input();
         }
 
         public double kmPerDag { get; set; }
-        public double kmMin { get; set; }
         public int broType { get; set; }
 
-        public string Input()
-        {
-
-            return "Jeg har gjort noget dumt";
-        }
-
+ 
         public double Output()
         {
             double bropenge = BroPenge(broType);
@@ -31,14 +24,14 @@ namespace Kørselsbidrag
             if (kmPerDag > 120)
             {
                 double temp = kmPerDag - 120;
-                penge = temp * 1.08;
+                penge = temp * over120Km;
                 kmPerDag -= temp;
             }
 
             if (kmPerDag > 24)
             {
                 double temp = kmPerDag - 24;
-                penge += temp * 2.16;
+                penge += temp * under120Km;
                 kmPerDag -= temp;
             }
 
@@ -70,5 +63,10 @@ namespace Kørselsbidrag
 
             return 110 * 2;
         }
+    }
+    interface Outputs
+    {
+        double Output();
+        double BroPenge();
     }
 }
